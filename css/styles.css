@@ -102,7 +102,7 @@ button.tile.on{outline:3px solid var(--bar);background:#fff}
 .showing{font-weight:600}
 .nil-note{background:#fff8d6;border:1px solid #f0dd7a;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:14px}
 .empty{background:var(--card);border:2px dashed #c9ccd4;border-radius:12px;padding:30px;text-align:center;color:var(--muted)}
-.card{background:var(--card);border-radius:12px;box-shadow:var(--shadow);padding:16px 18px 14px;margin-bottom:14px;border-left:6px solid var(--low)}
+.card{position:relative;background:var(--card);border-radius:12px;box-shadow:var(--shadow);padding:16px 18px 14px;margin-bottom:18px;border-left:6px solid var(--low)}
 .card.p-high,.top3-item.p-high{border-left-color:var(--high)}
 .card.p-medium,.top3-item.p-medium{border-left-color:var(--med)}
 .card.p-low,.top3-item.p-low{border-left-color:var(--low)}
@@ -129,16 +129,27 @@ button.tile.on{outline:3px solid var(--bar);background:#fff}
 .sources{font-size:13px;margin:6px 0}
 .sources a{margin-right:12px}
 
+/* addressed status badge (top right of card) */
+.addr-badge{position:absolute;top:-11px;right:16px;display:none;align-items:center;gap:6px;padding:3px 12px;border-radius:14px;color:#fff;font-size:12px;font-weight:700;letter-spacing:.3px;box-shadow:0 2px 6px rgba(20,20,40,.25);z-index:2}
+.card.addressed .addr-badge{display:inline-flex}
+.addr-badge small{font-weight:600;opacity:.92}
+.addr-badge.act{background:var(--high)}
+.addr-badge.assess{background:var(--med)}
+.addr-badge.monitor{background:#1a73b8}
+.addr-badge.note{background:var(--low)}
+
 /* action panel */
 .action-panel{border-top:1px solid var(--line);margin-top:10px;padding-top:10px}
 .action-panel h4{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
 .abtns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
-.abtn{position:relative;background:#fff;border:1px solid #c9ccd4;border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:600}
+.abtn{position:relative;background:#fff;border:1px solid #c9ccd4;border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:600;transition:background .15s,color .15s}
 .abtn:hover{background:#f3f4f7}
-.abtn.selected[data-action=act]{background:var(--high);border-color:var(--high);color:#fff}
-.abtn.selected[data-action=assess]{background:var(--med);border-color:var(--med);color:#fff}
-.abtn.selected[data-action=monitor]{background:#1a73b8;border-color:#1a73b8;color:#fff}
-.abtn.selected[data-action=note]{background:var(--low);border-color:var(--low);color:#fff}
+.abtn.selected{color:#fff;box-shadow:0 0 0 3px rgba(35,35,43,.15)}
+.abtn.selected::before{content:"\2713\00a0"}
+.abtn.selected[data-act=act]{background:var(--high);border-color:var(--high)}
+.abtn.selected[data-act=assess]{background:var(--med);border-color:var(--med)}
+.abtn.selected[data-act=monitor]{background:#1a73b8;border-color:#1a73b8}
+.abtn.selected[data-act=note]{background:var(--low);border-color:var(--low)}
 .sug{display:inline-block;background:var(--yellow);color:var(--bar);font-size:10px;font-weight:800;padding:1px 5px;border-radius:3px;margin-left:6px;vertical-align:middle}
 .afields{display:grid;grid-template-columns:180px 150px 1fr auto;gap:8px;align-items:center}
 .saved{color:#0f7b4a;font-size:13px;font-weight:600;min-width:60px;opacity:0;transition:opacity .3s}
@@ -193,17 +204,3 @@ table.tracker td{padding:8px 10px;border-top:1px solid var(--line);vertical-alig
   .card,.edition-head{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
   .container{padding:0}
 }
-/* Addressed status */
-.card{position:relative}
-.addr-badge{position:absolute;top:-10px;right:16px;display:none;align-items:center;gap:6px;
-  padding:3px 12px;border-radius:14px;color:#fff;font-size:12px;font-weight:700;
-  box-shadow:0 2px 6px rgba(20,20,40,.2);letter-spacing:.3px}
-.card.addressed .addr-badge{display:inline-flex}
-.addr-badge small{font-weight:600;opacity:.9}
-.addr-badge.act{background:var(--high)}
-.addr-badge.assess{background:var(--med)}
-.addr-badge.monitor{background:#1a73b8}
-.addr-badge.note{background:var(--low)}
-.card.addressed.a-act{border-left-color:var(--high)}
-.abtn.selected{box-shadow:0 0 0 3px rgba(35,35,43,.15);font-weight:700}
-.abtn.selected::before{content:"\2713\00a0"}
