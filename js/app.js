@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   var D = window.FSPULSE;
-  var KEY = 'fspulse.decisions.v1';
+  var KEY = 'fspulse.decisions';
   var app = document.getElementById('app');
   var COUNTRIES = Object.keys(D.countries);
   var AREA = {}, LINE = {}, ACT = {};
