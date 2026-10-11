@@ -122,10 +122,27 @@
       '<input type="text" class="f-note" aria-label="Note" placeholder="Note: what will we do?" value="' + esc(d.note || '') + '">' +
       '<span class="saved" aria-live="polite">Saved</span></div></div>';
   }
+  function addrBadgeHTML(it) {
+    var a = decAction(it);
+    return '<span class="addr-badge' + (a ? ' ' + esc(a) : '') + '">' +
+      (a && ACT[a] ? '\u2713 Addressed <small>\u00b7 ' + esc(ACT[a].label) + '</small>' : '') + '</span>';
+  }
+  function paintAddressed(id) {
+    var card = document.getElementById('card-' + id), it = itemById(id);
+    if (!card || !it) return;
+    var a = decAction(it), badge = card.querySelector('.addr-badge');
+    Object.keys(ACT).forEach(function (k) { card.classList.remove('a-' + k); });
+    card.classList.toggle('addressed', !!a);
+    if (a) card.classList.add('a-' + a);
+    if (badge) {
+      badge.className = 'addr-badge' + (a ? ' ' + a : '');
+      badge.innerHTML = a && ACT[a] ? '\u2713 Addressed <small>\u00b7 ' + esc(ACT[a].label) + '</small>' : '';
+    }
+  }
   function cardHTML(it, showEd) {
     var lines = it.lines.map(function (l) { return '<span class="tag line">' + esc(LINE[l].label) + '</span>'; }).join('');
     var src = it.sources.map(function (s) { return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' + esc(s.name) + ' \u2197</a>'; }).join('');
-    return '<article class="card p-' + band(it) + '" id="card-' + it.id + '">' +
+    return '<article class="card p-' + band(it) + (decAction(it) ? ' addressed a-' + decAction(it) : '') + '" id="card-' + it.id + '">' + addrBadgeHTML(it) +
       '<div class="meta">' + tagsHTML(it, showEd) + badgeHTML(it) + '<span class="date">' + fmtD(it.date) + '</span></div>' +
       '<h3>' + esc(it.title) + '</h3><p class="summary">' + esc(it.summary) + '</p>' +
       '<div class="why"><strong>Why it matters to us</strong>' + esc(it.why) + '</div>' +
@@ -254,7 +271,8 @@
       setTimeout(function () { el.classList.remove('flash'); }, 2200);
     }, 50);
   }
-/* ---------- Archive page ---------- */
+
+  /* ---------- Archive page ---------- */
   function renderArchive() {
     document.title = 'Archive | FS Pulse';
     var h = '<h1>Archive</h1><p style="color:#6a6f7a">All fortnightly editions, newest first. Select one to open it.</p><div class="archive-grid">';
@@ -429,6 +447,7 @@
           b.classList.toggle('selected', on); b.setAttribute('aria-pressed', on);
         });
       }
+      paintAddressed(id);
       flashSaved(id);
     }
   });
