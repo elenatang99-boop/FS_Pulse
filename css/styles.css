@@ -193,3 +193,17 @@ table.tracker td{padding:8px 10px;border-top:1px solid var(--line);vertical-alig
   .card,.edition-head{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
   .container{padding:0}
 }
+/* Addressed status */
+.card{position:relative}
+.addr-badge{position:absolute;top:-10px;right:16px;display:none;align-items:center;gap:6px;
+  padding:3px 12px;border-radius:14px;color:#fff;font-size:12px;font-weight:700;
+  box-shadow:0 2px 6px rgba(20,20,40,.2);letter-spacing:.3px}
+.card.addressed .addr-badge{display:inline-flex}
+.addr-badge small{font-weight:600;opacity:.9}
+.addr-badge.act{background:var(--high)}
+.addr-badge.assess{background:var(--med)}
+.addr-badge.monitor{background:#1a73b8}
+.addr-badge.note{background:var(--low)}
+.card.addressed.a-act{border-left-color:var(--high)}
+.abtn.selected{box-shadow:0 0 0 3px rgba(35,35,43,.15);font-weight:700}
+.abtn.selected::before{content:"\2713\00a0"}
